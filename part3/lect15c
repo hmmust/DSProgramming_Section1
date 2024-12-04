@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+from numpy import random
+students = pd.read_csv("./part3/students.csv")
+students_courses = pd.read_csv("./part3/students_courses.csv")
+def adjust_major(m):
+    m = m.strip()
+    m = m.replace("DSS",'DS').replace(" SE",'SE')
+    return m
+print(students['Major'].value_counts(dropna=False))
+
+students['Major']= students['Major'].apply(adjust_major)
+
+students['Year'] = students['Id'].astype(str).str[0:4].astype(np.int32)
+students['Id'] = students['Id'].astype(np.int16)
+
+print(students)
+students['Major'].value_counts(dropna=False).plot.bar()
+
+

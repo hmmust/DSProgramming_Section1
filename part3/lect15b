@@ -1,0 +1,20 @@
+import pandas as pd
+import numpy as np
+from numpy import random
+students = pd.read_csv("./part3/students.csv")
+students_courses = pd.read_csv("./part3/students_courses.csv")
+students['Year'] = students['Id'].astype(str).str[0:4].astype(np.int32)
+students['Major']= students['Major'].str.strip()
+students['Major'].replace({"DSS":"DS"," SE":"SE"},inplace=True)
+students['Id'] = students['Id'].astype(np.int16)
+
+std= pd.merge(students,students_courses,on=['Id'])
+
+std= pd.merge(students,students_courses,on=['Id'],how='left')
+std= pd.merge(students,students_courses,on=['Id'],how='right')
+std= pd.merge(students,students_courses,on=['Id'],how='outer')
+print(std)
+
+
+
+
